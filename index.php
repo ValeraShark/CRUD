@@ -1,26 +1,13 @@
-<?php
-echo "hello world";
-?>
-<form method="post" action="index.php">
-    <input type="text" placeholder="name" name="name">
-    <br>
-    <input type="text" placeholder="description" name="description">
-    <br>
-    <input type="text" placeholder="created_at" name="created_at">
-    <br>
-    <input type="submit">
-</form>
+
 
 <?php
+
+require_once 'model/model.php';
+
+var_dump($_POST['name'], $_POST['description'], $_POST['created_at']);
 if(isset($_POST['name']) && isset($_POST['description']) && isset($_POST['created_at'])) {
 
-    $pdo_conn = new PDO("mysql:host=127.0.0.1;dbname=CRUD", 'root', '123456');
-//var_dump($pdo_conn::getAvailableDrivers());
-    $sql = 'INSERT INTO article (name, description, created_at) VALUES (:name, :description, :created_at)';
-    $statement = $pdo_conn->prepare($sql);
-    $statement->bindValue(':name', $_POST['name']);
-    $statement->bindValue(':description', $_POST['description']);
-    $statement->bindValue(':created_at', $_POST['created_at']);
-    var_dump($statement->execute());
+    insert($_POST['name'], $_POST['description'], $_POST['created_at']);
 }
 
+require_once 'view/indexTemplate.php';
